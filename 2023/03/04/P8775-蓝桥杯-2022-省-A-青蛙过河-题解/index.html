@@ -111,11 +111,15 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="一道二分+结论的好题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P8775 [蓝桥杯 2022 省 A] 青蛙过河 题解">
+<meta property="og:url" content="http://example.com/2023/03/04/P8775-%E8%93%9D%E6%A1%A5%E6%9D%AF-2022-%E7%9C%81-A-%E9%9D%92%E8%9B%99%E8%BF%87%E6%B2%B3-%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一道二分+结论的好题。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-04T12:43:48.000Z">
+<meta property="article:modified_time" content="2023-03-04T12:46:06.498Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -147,13 +151,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/"/>
+  <link rel="canonical" href="http://example.com/2023/03/04/P8775-蓝桥杯-2022-省-A-青蛙过河-题解/"/>
 
 
 
 
 
-  <title>Hexo</title>
+  <title>P8775 [蓝桥杯 2022 省 A] 青蛙过河 题解 | Hexo</title>
   
 
 
@@ -172,8 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,9 +249,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -278,9 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/03/04/P8775-%E8%93%9D%E6%A1%A5%E6%9D%AF-2022-%E7%9C%81-A-%E9%9D%92%E8%9B%99%E8%BF%87%E6%B2%B3-%E9%A2%98%E8%A7%A3/" itemprop="url">P8775 [蓝桥杯 2022 省 A] 青蛙过河 题解</a></h1>
+          <h1 class="post-title" itemprop="name headline">P8775 [蓝桥杯 2022 省 A] 青蛙过河 题解</h1>
         
 
         <div class="post-meta">
@@ -330,16 +331,41 @@
       
 
       
-        
-          <p>一道二分+结论的好题。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/03/04/P8775-%E8%93%9D%E6%A1%A5%E6%9D%AF-2022-%E7%9C%81-A-%E9%9D%92%E8%9B%99%E8%BF%87%E6%B2%B3-%E9%A2%98%E8%A7%A3/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>一道二分+结论的好题。</p>
+<span id="more"></span>
+
+<hr>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8775">$\texttt{Link}$</a></p>
+<p>$\Large\texttt{Description}$</p>
+<p>有 $n-1$ 块石头排成一条直线，第 $i$ 块石头有一个高度 $h_i$，小青蛙打算经过河里的石头跳到对岸。</p>
+<p>小青蛙每次跳跃必须落在一块石头或者岸上，每次从一块石头起跳，这块石头的高度就会下降 $1$，当石头的高度下降到 $0$ 时小青蛙不能再跳到这块石头上（某次跳跃后使石头高度下降到 $0$ 是允许的)。</p>
+<p>小青蛙一共需要去学校上 $x$ 天课，所以它需要往返 $2x$ 次。当小青蛙具有一个跳跃能力 $y$ 时，它能跳不超过 $y$ 的距离。</p>
+<p>请问小青蛙的跳跃能力至少是多少才能用这些石头上完 $x$ 次课。</p>
+<p>$\Large\texttt{Analysis}$</p>
+<p>跳回来和跳到对岸是没有区别的，所以题目可以看作有 $2x$ 只青蛙一起从左岸跳到右岸。</p>
+<p>不难想到二分 $y$ 的值，通过判断当前 $y$ 是否能够使 $2x$ 只青蛙跳过岸来缩小边界。</p>
+<p>难点在于 <code>check</code> 函数上，如何判断某个跳跃能力是否能够使 $2x$ 只青蛙跳过岸呢？</p>
+<hr>
+<p>$\textbf{Key Conclusion :}$ 跳跃能力 $y$ 是合法的 $\iff$ 所有长度为 $y$ 的区间内的石头高度和 $\geq 2x$。</p>
+<p>$\textbf{Proof :}$ </p>
+<p>容易发现，任意一个长度为 $y$ 的区间都会被每只青蛙踩至少一次，那么 $2x$ 只青蛙就至少会踩 $2x$ 次，所以每个区间内的高度和都必须要 $\geq 2x$。</p>
+<p>在这 $2x$ 只青蛙过河的任意时刻，每个区间的青蛙个数和不会超过 $2x$，所以满足上面的条件后一定可以使所有青蛙过河。</p>
+<p>这样描述可能不是很好理解，我们来模拟一下青蛙跳跃的过程：</p>
+<ul>
+<li><p>刚开始，所有青蛙都跳出一步，此时 $2x$ 只青蛙均在区间 $[1,y]$ 中。</p>
+</li>
+<li><p>紧接着，处于石头 $1$ 上的所有青蛙跳到区间 $[2,y+1]$ 中，由于每个区间的高度和都 $\geq 2x$，所以区间 $[2,y+1]$ 一定能容下这些青蛙。</p>
+</li>
+<li><p>之后青蛙们就可以以类似的方式跳到 $[3,y+2], [4,y+3],\dots$ 一直到 $[n-y,n-1]$，然后就可以一步到达对岸。</p>
+</li>
+</ul>
+<p>故每个区间高度和 $\geq 2x$ 是 $y$ 合法的充分必要条件。</p>
+<p>$\textbf{Q.E.D.}$</p>
+<hr>
+<p>有了这个性质之后，<code>check</code> 函数就很好写了，使用前缀和快速计算出每个区间的高度和即可。</p>
+<p>$\Large\texttt{AC Code}$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> i64 long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rep(i, a, b) for (int i = (a); i &lt;= (b); i++)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> per(i, a, b) for (int i = (a); i &gt;= (b); i--)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, x;</span><br><span class="line">i64 arr[N], sum[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">rep</span>(i, y, n - <span class="number">1</span>) <span class="keyword">if</span>(sum[i] - sum[i - y] &lt; <span class="number">2</span> * x) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; x;</span><br><span class="line">    <span class="built_in">rep</span>(i, <span class="number">1</span>, n - <span class="number">1</span>) &#123;</span><br><span class="line">    	cin &gt;&gt; arr[i];</span><br><span class="line">    	sum[i] = sum[i - <span class="number">1</span>] + arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> l = <span class="number">1</span>, r = n;</span><br><span class="line">    <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">    	<span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">if</span>(<span class="built_in">check</span>(mid)) r = mid;</span><br><span class="line">    	<span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; r &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -356,137 +382,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/09/%E7%8F%82%E6%9C%B5%E8%8E%89%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/09/%E7%8F%82%E6%9C%B5%E8%8E%89%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url">珂朵莉树学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-09T22:27:37+08:00">
-                2023-01-09
-              </time>
+              <a href="/2023/01/09/%E7%8F%82%E6%9C%B5%E8%8E%89%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="珂朵莉树学习笔记">
+                <i class="fa fa-chevron-left"></i> 珂朵莉树学习笔记
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>学完珂朵莉树，感觉可以刷穿一切有区间赋值操作的题目（大雾）。</p>
-<p>既然这样，那就写篇 blog 记录一下吧。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/01/09/%E7%8F%82%E6%9C%B5%E8%8E%89%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -496,135 +413,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/03/Educational-Codeforces-Round-106/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/03/Educational-Codeforces-Round-106/" itemprop="url">Educational Codeforces Round 106</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-03T14:54:17+08:00">
-                2023-01-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>个人练习中的一场，做出了 A ~ D 题，为数不多的做出 div2 的 D 题的一次，于是来写个题解。</p>
-<p>F 题待补。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/01/03/Educational-Codeforces-Round-106/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -632,6 +425,14 @@
 
 
           
+
+  
+     <div id="gitalk-container"></div>
+  
+  
+  
+
+
 
         </div>
         
@@ -837,6 +638,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -877,6 +682,23 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: 'e5757b24704a7f1c4694',
+      clientSecret: '12bda09ef2ad0ce0b8e19ecfcf75f83794c8dffc',
+      repo: 'MyBlogComments',
+      owner: 'xhgua',
+      admin: ['xhgua'],
+      id: md5(location.pathname),
+      distractionFreeMode: 'false'
+    })
+    gitalk.render('gitalk-container')
+  </script>
 
   
 
