@@ -51,7 +51,7 @@
     }
 
     function createFoldButton(fold) {
-        return '<span class="fold">' + (fold === 'unfolded' ? '<i class="fas fa-angle-down"></i>' : '<i class="fas fa-angle-right"></i>') + '</span>';
+        return '<span class="fold">' + (fold === 'unfolded' ? '<i class="fas fa-angle-down"></i>' : '<i class="fas fa-angle-right"></i>') + ' Code</span>';
     }
 
     $('figure.highlight table').wrap('<div class="highlight-body">');
@@ -110,7 +110,7 @@
                     }
                 }
                 $(this).find('figcaption div.level-left').prepend(createFoldButton(fold));
-                toggleFold(this, fold === 'folded');
+                toggleFold(this, true);
             });
 
             $('figure.highlight figcaption .level-left').click(function() {
