@@ -10759,6 +10759,7 @@ body > .section {
   border-color: transparent;
 }
 .card {
+  background-color: #fff;
   overflow: visible;
   border-radius: 4px;
 }
