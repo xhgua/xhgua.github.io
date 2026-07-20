@@ -500,6 +500,7 @@ body {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
+  margin: 0.5rem 0;
 }
 .content code {
   hyphens: manual;
