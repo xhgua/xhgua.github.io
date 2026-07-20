@@ -320,7 +320,7 @@ body h1,
 body .h1 {
   display: block;
   margin-top: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
   color: #3498db;
   letter-spacing: 0.01em;
   font-weight: 700;
@@ -333,19 +333,19 @@ body h2,
 body .h2 {
   position: relative;
   display: block;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.25rem;
   color: #3498db;
   text-transform: none;
   letter-spacing: normal;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 body h3 {
   color: #3498db;
   text-decoration: underline;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 body h4,
 body h5,
