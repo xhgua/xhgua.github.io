@@ -147,6 +147,7 @@
 
 /* ---- error ---- */
 .hbe-error {
+  width: 100%;
   min-height: 2.4em;
   margin: 0.25rem 0;
   padding: 0;
