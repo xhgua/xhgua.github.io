@@ -81,7 +81,17 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2148G-Farmer-John%E2%80%99s-Last-Wish-1900"><span class="toc-number">1.</span> <span class="toc-text">2148G - Farmer John’s Last Wish *1900</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1510D-Digits-2100"><span class="toc-number">2.</span> <span class="toc-text">1510D - Digits *2100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1665D-GCD-Guess-2000"><span class="toc-number">3.</span> <span class="toc-text">1665D - GCD Guess *2000</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#549D-Haar-Features-1900"><span class="toc-number">4.</span> <span class="toc-text">549D - Haar Features *1900</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#940E-Cashback-2000"><span class="toc-number">5.</span> <span class="toc-text">940E - Cashback *2000</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#484B-Maximum-Value-2100"><span class="toc-number">6.</span> <span class="toc-text">484B - Maximum Value *2100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#557D-Vitaly-and-Cycle-2000"><span class="toc-number">7.</span> <span class="toc-text">557D - Vitaly and Cycle *2000</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2044F-Easy-Demon-Problem-1900"><span class="toc-number">8.</span> <span class="toc-text">2044F - Easy Demon Problem *1900</span></a></li></ol>
+        <input type="checkbox" id="toc-toggle" class="toc-toggle" aria-label="目录">
+        <label for="toc-toggle" class="toc-header">
+          <i class="fa-solid fa-list" aria-hidden="true"></i>
+          <span>目录</span>
+          <span class="toc-arrow"></span>
+        </label>
+        <div class="toc-body">
+          <div class="toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2148G-Farmer-John%E2%80%99s-Last-Wish-1900"><span class="toc-number">1.</span> <span class="toc-text">2148G - Farmer John’s Last Wish *1900</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1510D-Digits-2100"><span class="toc-number">2.</span> <span class="toc-text">1510D - Digits *2100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1665D-GCD-Guess-2000"><span class="toc-number">3.</span> <span class="toc-text">1665D - GCD Guess *2000</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#549D-Haar-Features-1900"><span class="toc-number">4.</span> <span class="toc-text">549D - Haar Features *1900</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#940E-Cashback-2000"><span class="toc-number">5.</span> <span class="toc-text">940E - Cashback *2000</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#484B-Maximum-Value-2100"><span class="toc-number">6.</span> <span class="toc-text">484B - Maximum Value *2100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#557D-Vitaly-and-Cycle-2000"><span class="toc-number">7.</span> <span class="toc-text">557D - Vitaly and Cycle *2000</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2044F-Easy-Demon-Problem-1900"><span class="toc-number">8.</span> <span class="toc-text">2044F - Easy Demon Problem *1900</span></a></li></ol>
+          </div>
+        </div>
       </div>
     
   </div>
@@ -324,6 +334,24 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 
 
 <script src="/js/main.js"></script>
+
+
+<!-- Nested collapsible ToC: an item owning a sub-list becomes a foldable header -->
+<script type="text/javascript">
+  $(function() {
+    // Mark any TOC item that owns a child list (desktop #toc and mobile #toc-footer alike)
+    $(".toc-item").each(function() {
+      if ($(this).children(".toc-child").length) {
+        $(this).addClass("has-child");
+      }
+    });
+    // Delegated handler: clicking a group header folds/unfolds its children
+    $(document).on("click", ".toc-item.has-child > .toc-link", function(e) {
+      e.preventDefault();
+      $(this).parent().toggleClass("is-open");
+    });
+  });
+</script>
 
 <!-- search -->
 

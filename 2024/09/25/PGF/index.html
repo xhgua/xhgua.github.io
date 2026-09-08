@@ -81,7 +81,17 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#P4548-CTSC2006-%E6%AD%8C%E5%94%B1%E7%8E%8B%E5%9B%BD"><span class="toc-number">1.</span> <span class="toc-text">P4548 [CTSC2006] 歌唱王国</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARC136F-Flip-Cells"><span class="toc-number">2.</span> <span class="toc-text">ARC136F Flip Cells</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text"></span></a></li></ol>
+        <input type="checkbox" id="toc-toggle" class="toc-toggle" aria-label="目录">
+        <label for="toc-toggle" class="toc-header">
+          <i class="fa-solid fa-list" aria-hidden="true"></i>
+          <span>目录</span>
+          <span class="toc-arrow"></span>
+        </label>
+        <div class="toc-body">
+          <div class="toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#P4548-CTSC2006-%E6%AD%8C%E5%94%B1%E7%8E%8B%E5%9B%BD"><span class="toc-number">1.</span> <span class="toc-text">P4548 [CTSC2006] 歌唱王国</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARC136F-Flip-Cells"><span class="toc-number">2.</span> <span class="toc-text">ARC136F Flip Cells</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text"></span></a></li></ol>
+          </div>
+        </div>
       </div>
     
   </div>
@@ -272,6 +282,24 @@
 
 
 <script src="/js/main.js"></script>
+
+
+<!-- Nested collapsible ToC: an item owning a sub-list becomes a foldable header -->
+<script type="text/javascript">
+  $(function() {
+    // Mark any TOC item that owns a child list (desktop #toc and mobile #toc-footer alike)
+    $(".toc-item").each(function() {
+      if ($(this).children(".toc-child").length) {
+        $(this).addClass("has-child");
+      }
+    });
+    // Delegated handler: clicking a group header folds/unfolds its children
+    $(document).on("click", ".toc-item.has-child > .toc-link", function(e) {
+      e.preventDefault();
+      $(this).parent().toggleClass("is-open");
+    });
+  });
+</script>
 
 <!-- search -->
 

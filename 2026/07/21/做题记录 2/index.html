@@ -225,6 +225,24 @@
 
 <script src="/js/main.js"></script>
 
+
+<!-- Nested collapsible ToC: an item owning a sub-list becomes a foldable header -->
+<script type="text/javascript">
+  $(function() {
+    // Mark any TOC item that owns a child list (desktop #toc and mobile #toc-footer alike)
+    $(".toc-item").each(function() {
+      if ($(this).children(".toc-child").length) {
+        $(this).addClass("has-child");
+      }
+    });
+    // Delegated handler: clicking a group header folds/unfolds its children
+    $(document).on("click", ".toc-item.has-child > .toc-link", function(e) {
+      e.preventDefault();
+      $(this).parent().toggleClass("is-open");
+    });
+  });
+</script>
+
 <!-- search -->
 
 <!-- Baidu Analytics -->
