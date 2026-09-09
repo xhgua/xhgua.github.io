@@ -488,6 +488,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
+#swup {
+  height: 100%;
+}
 .content {
   position: relative;
   display: flex;
