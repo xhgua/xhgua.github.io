@@ -1,27 +1,36 @@
 /**
- * Sets up Justified Gallery.
+ * Sets up Justified Gallery (re-runnable after a page transition).
  */
-if (!!$.prototype.justifiedGallery) {
-  var options = {
-    rowHeight: 140,
-    margins: 4,
-    lastRow: "justify"
-  };
-  $(".article-gallery").justifiedGallery(options);
+function initGallery() {
+  if (!!$.prototype.justifiedGallery) {
+    var options = {
+      rowHeight: 140,
+      margins: 4,
+      lastRow: "justify"
+    };
+    $(".article-gallery").justifiedGallery(options);
+  }
 }
 
-$(document).ready(function() {
+/**
+ * Page initialization (responsive nav + menus + scroll behavior).
+ *
+ * This is re-runnable: it uses namespaced jQuery events so that calling it
+ * again after a Swup page transition rebinds cleanly without stacking
+ * duplicate handlers.
+ */
+function initMain() {
 
   /**
    * Shows the responsive navigation menu on mobile.
    */
-  $("#header > #nav > ul > .icon").click(function() {
+  $("#header > #nav > ul > .icon").off("click.main").on("click.main", function() {
     $("#header > #nav > ul").toggleClass("responsive");
   });
 
 
   /**
-   * Controls the different versions of  the menu in blog post articles 
+   * Controls the different versions of  the menu in blog post articles
    * for Desktop, tablet and mobile.
    */
   if ($(".post").length) {
@@ -39,7 +48,7 @@ $(document).ready(function() {
     /**
      * Display the menu if the menu icon is clicked.
      */
-    menuIcon.click(function() {
+    menuIcon.off("click.main").on("click.main", function() {
       if (menu.is(":hidden")) {
         menu.show();
         menuIcon.addClass("active");
@@ -54,8 +63,9 @@ $(document).ready(function() {
      * Add a scroll listener to the menu. Navigation links stay visible (no
      * auto-hide on scroll); on tablet the menu icon swaps for a scroll-to-top icon.
      */
+    $(window).off("scroll.main");
     if (menu.length) {
-      $(window).on("scroll", function() {
+      $(window).on("scroll.main", function() {
         var topDistance = menu.offset().top;
 
         // on tablet, hide the navigation icon as well and show a "scroll to top
@@ -76,7 +86,7 @@ $(document).ready(function() {
      */
     if ($( "#footer-post").length) {
       var lastScrollTop = 0;
-      $(window).on("scroll", function() {
+      $(window).on("scroll.main", function() {
         var topDistance = $(window).scrollTop();
 
         if (topDistance > lastScrollTop){
@@ -93,7 +103,7 @@ $(document).ready(function() {
         $("#toc-footer").hide();
         $("#share-footer").hide();
 
-        // show a "navigation" icon when close to the top of the page, 
+        // show a "navigation" icon when close to the top of the page,
         // otherwise show a "scroll to the top" icon
         if (topDistance < 50) {
           $("#actions-footer > #top").hide();
@@ -103,4 +113,13 @@ $(document).ready(function() {
       });
     }
   }
+}
+
+$(document).ready(function() {
+  initGallery();
+  initMain();
 });
+
+// Expose the initializers so Swup can re-run them after each page transition.
+window.initGallery = initGallery;
+window.initMain = initMain;

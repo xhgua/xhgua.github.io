@@ -50,6 +50,25 @@
 
     <!-- persian styles -->
     
+    <!-- page transition (Swup): fade the container out, load, then fade in -->
+    
+    <style>
+      html.is-changing .transition-fade {
+        transition: opacity .2s ease;
+      }
+      html.is-animating .transition-fade {
+        opacity: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html.is-changing .transition-fade {
+          transition: none;
+        }
+        html.is-animating .transition-fade {
+          opacity: 1;
+        }
+      }
+    </style>
+    
     <!-- rss -->
     
     
@@ -58,10 +77,11 @@
 <!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
 
 <body class="max-width mx-auto px3 ltr">
-    
-    <div class="content index py4 ">
-        
-          <header id="header">
+    <div id="swup" class="transition-fade">
+      
+      <div class="content index py4 ">
+          
+            <header id="header">
   <a class="u-url u-uid" href="/">
   
     <div id="title">
@@ -86,16 +106,16 @@
   </div>
 </header>
 
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     
 
     <div class="content" itemprop="articleBody">
         
     </div>
 </article>
-        
-        <footer id="footer">
+          
+          <footer id="footer">
   <div class="footer-left">
     Copyright &copy;
     
@@ -120,6 +140,7 @@
   </div>
 </footer>
 
+      </div>
     </div>
     <!-- styles -->
 
@@ -137,10 +158,58 @@
 
 <!-- clipboard -->
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  // Re-runnable: mounts copy buttons onto code blocks and (re)binds ClipboardJS.
+  // Defined unconditionally so it survives a Swup navigation into a post page.
+  window.initClipboard = function() {
+    if (!$(".highlight table").length) return;
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it (skip blocks that already have a button)
+    $(".highlight table").each(function() {
+      if (!$(this).prev(".btn-copy").length) {
+        $(this).before(btn);
+      }
+    });
+    // destroy the previous instance so delegated handlers never stack
+    if (window._clip) { window._clip.destroy(); }
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+    window._clip = clip;
+  };
+  $(function() { window.initClipboard(); });
+</script>
 
 <script src="/js/main.js"></script>
 
-
+<!-- Nested collapsible ToC: an item owning a sub-list becomes a foldable header -->
+<script type="text/javascript">
+  // Re-runnable: (re)marks TOC items that own a child list. The delegated
+  // click handler is bound once on document, so it survives Swup DOM swaps.
+  window.initToc = function() {
+    $(".toc-item").each(function() {
+      if ($(this).children(".toc-child").length) {
+        $(this).addClass("has-child");
+      }
+    });
+  };
+  $(document).off("click.toc").on("click.toc", ".toc-item.has-child > .toc-link", function(e) {
+    e.preventDefault();
+    $(this).parent().toggleClass("is-open");
+  });
+  $(function() { window.initToc(); });
+</script>
 <!-- search -->
 
 <!-- Baidu Analytics -->
@@ -150,6 +219,29 @@
 <!-- Disqus Comments -->
 
 <!-- utterances Comments -->
+
+<!-- page transition (Swup): PJAX navigation with fade -->
+
+
+<script src="/js/lib/swup.umd.js"></script>
+
+<script type="text/javascript">
+  (function () {
+    if (typeof Swup === 'undefined') return;
+    var swup = new Swup({
+      containers: ['#swup'],
+      cache: true,
+      scroll: true
+    });
+    // Re-run per-page initialization after every transition.
+    swup.hooks.on('page:view', function () {
+      if (window.initGallery) window.initGallery();
+      if (window.initMain) window.initMain();
+      if (window.initToc) window.initToc();
+      if (window.initClipboard) window.initClipboard();
+    });
+  })();
+</script>
 
 </body>
 </html>
