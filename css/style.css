@@ -482,7 +482,7 @@ body {
   color: #363533;
   font-weight: 400;
   font-size: 15px;
-  font-family: "JetBrains Mono", "Menlo", "Meslo LG", monospace;
+  font-family: "JetBrains Mono", "Menlo", "Meslo LG", "Noto Sans SC", monospace;
   line-height: 1.45;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
@@ -1601,7 +1601,7 @@ article .content .caption {
   font-display: swap;
   font-weight: 400;
   font-size: 12px;
-  font-family: "JetBrains Mono", "Menlo", "Meslo LG", monospace;
+  font-family: "JetBrains Mono", "Menlo", "Meslo LG", "Noto Sans SC", monospace;
   line-height: 1.45;
   text-rendering: geometricPrecision;
   text-align: center;
@@ -1703,7 +1703,7 @@ article .content .caption {
   align-items: center;
   gap: 0.6rem;
   padding: 0.6rem 1rem;
-  font-family: "JetBrains Mono", "Menlo", "Meslo LG", monospace;
+  font-family: "JetBrains Mono", "Menlo", "Meslo LG", "Noto Sans SC", monospace;
   font-size: 0.88rem;
   font-weight: 500;
   color: #363533;
@@ -1840,7 +1840,7 @@ pre {
   border: 1px dotted #666;
   border-radius: 4px;
   font-size: 13px;
-  font-family: "JetBrains Mono", "Menlo", "Meslo LG", monospace;
+  font-family: "JetBrains Mono", "Menlo", "Meslo LG", "Noto Sans SC", monospace;
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1861,7 +1861,7 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #fafafa;
-  font-family: "JetBrains Mono", "Menlo", "Meslo LG", monospace;
+  font-family: "JetBrains Mono", "Menlo", "Meslo LG", "Noto Sans SC", monospace;
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
