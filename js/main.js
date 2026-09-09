@@ -26,7 +26,6 @@ $(document).ready(function() {
    */
   if ($(".post").length) {
     var menu = $("#menu");
-    var nav = $("#menu > #nav");
     var menuIcon = $("#menu-icon, #menu-icon-tablet");
 
     /**
@@ -52,18 +51,12 @@ $(document).ready(function() {
     });
 
     /**
-     * Add a scroll listener to the menu to hide/show the navigation links.
+     * Add a scroll listener to the menu. Navigation links stay visible (no
+     * auto-hide on scroll); on tablet the menu icon swaps for a scroll-to-top icon.
      */
     if (menu.length) {
       $(window).on("scroll", function() {
         var topDistance = menu.offset().top;
-
-        // hide only the navigation links on desktop
-        if (!nav.is(":visible") && topDistance < 50) {
-          nav.show();
-        } else if (nav.is(":visible") && topDistance > 100) {
-          nav.hide();
-        }
 
         // on tablet, hide the navigation icon as well and show a "scroll to top
         // icon" instead

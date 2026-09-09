@@ -893,8 +893,22 @@ body {
 }
 #header-post #toc .toc-body > .toc-inner {
   min-height: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   max-height: calc(100vh - 14rem);
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scrollbar-gutter: stable;
+}
+#header-post #toc .toc-body > .toc-inner::-webkit-scrollbar {
+  width: 6px;
+}
+#header-post #toc .toc-body > .toc-inner::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+#header-post #toc .toc-body > .toc-inner:hover::-webkit-scrollbar-thumb {
+  background: #999;
 }
 #header-post #toc .toc-inner > .toc {
   padding: 0.45rem 0.85rem 0.9rem;
