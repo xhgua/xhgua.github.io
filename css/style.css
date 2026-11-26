@@ -1928,3 +1928,17 @@ code {
 .katex-display > .katex {
   white-space: nowrap !important;
 }
+
+/* 首页文章列表：用真实下划线替代背景渐变，避免高 DPI 下两行下划线粗细不一致 */
+.post-list .post-item a {
+  background-image: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: #363533;
+}
+.post-list .post-item a:hover {
+  background-image: none;
+  color: #3498db;
+  text-decoration-color: #3498db;
+}
